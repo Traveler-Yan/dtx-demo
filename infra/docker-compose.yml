@@ -1,0 +1,80 @@
+# Infrastructure for the demos that need real middleware.
+#
+#   docker compose -f infra/docker-compose.yml up -d
+#
+# Services:
+#   mysql        3306   dtx_order + dtx_stock (undo_log included)
+#   seata        8091   transaction coordinator (file registry / file store)
+#   namesrv      9876   RocketMQ name server
+#   broker       10911  RocketMQ broker
+#   rmqconsole   8081   RocketMQ dashboard (optional)
+#
+# The TCC / SAGA / outbox modules do NOT need any of this - they run on H2.
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: dtx-mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      TZ: Asia/Shanghai
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_general_ci
+    volumes:
+      - ./mysql/init:/docker-entrypoint-initdb.d
+      - dtx-mysql-data:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-proot" ]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  seata:
+    image: seataio/seata-server:2.0.0
+    container_name: dtx-seata
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - "8091:8091"
+      - "7091:7091"
+    environment:
+      SEATA_PORT: 8091
+      STORE_MODE: file
+      SEATA_IP: 127.0.0.1
+
+  namesrv:
+    image: apache/rocketmq:5.3.1
+    container_name: dtx-namesrv
+    command: sh mqnamesrv
+    ports:
+      - "9876:9876"
+
+  broker:
+    image: apache/rocketmq:5.3.1
+    container_name: dtx-broker
+    depends_on:
+      - namesrv
+    ports:
+      - "10911:10911"
+      - "10909:10909"
+    environment:
+      NAMESRV_ADDR: namesrv:9876
+    command: sh mqbroker -c /home/rocketmq/conf/broker.conf
+    volumes:
+      - ./rocketmq/broker.conf:/home/rocketmq/conf/broker.conf
+
+  rmqconsole:
+    image: apacherocketmq/rocketmq-dashboard:latest
+    container_name: dtx-rmq-console
+    depends_on:
+      - namesrv
+    ports:
+      - "8081:8080"
+    environment:
+      JAVA_OPTS: "-Drocketmq.namesrv.addr=namesrv:9876"
+
+volumes:
+  dtx-mysql-data:

@@ -1,0 +1,16 @@
+D:\java-space\dtx-demo\dtx-message\src\main\java\com\example\dtx\message\broker\BrokerMessage.java
+D:\java-space\dtx-demo\dtx-message\src\main\java\com\example\dtx\message\broker\InMemoryBroker.java
+D:\java-space\dtx-demo\dtx-message\src\main\java\com\example\dtx\message\broker\MessageBroker.java
+D:\java-space\dtx-demo\dtx-message\src\main\java\com\example\dtx\message\consumer\ConsumerRegistrar.java
+D:\java-space\dtx-demo\dtx-message\src\main\java\com\example\dtx\message\demo\MessageDemoRunner.java
+D:\java-space\dtx-demo\dtx-message\src\main\java\com\example\dtx\message\domain\LocalMessage.java
+D:\java-space\dtx-demo\dtx-message\src\main\java\com\example\dtx\message\domain\MessageStatus.java
+D:\java-space\dtx-demo\dtx-message\src\main\java\com\example\dtx\message\domain\Order.java
+D:\java-space\dtx-demo\dtx-message\src\main\java\com\example\dtx\message\MessageApplication.java
+D:\java-space\dtx-demo\dtx-message\src\main\java\com\example\dtx\message\relay\MessageRelay.java
+D:\java-space\dtx-demo\dtx-message\src\main\java\com\example\dtx\message\relay\OutboxStartupRecovery.java
+D:\java-space\dtx-demo\dtx-message\src\main\java\com\example\dtx\message\repository\IdempotentRepository.java
+D:\java-space\dtx-demo\dtx-message\src\main\java\com\example\dtx\message\repository\LocalMessageRepository.java
+D:\java-space\dtx-demo\dtx-message\src\main\java\com\example\dtx\message\rocketmq\RocketMqTransactionalSender.java
+D:\java-space\dtx-demo\dtx-message\src\main\java\com\example\dtx\message\service\OrderCreatedHandler.java
+D:\java-space\dtx-demo\dtx-message\src\main\java\com\example\dtx\message\service\OrderService.java

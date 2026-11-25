@@ -1,0 +1,44 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: dtx-seata
+  main:
+    banner-mode: "off"
+
+app:
+  datasource:
+    order:
+      url: jdbc:mysql://127.0.0.1:3306/dtx_order?useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+      username: root
+      password: root
+      driver-class-name: com.mysql.cj.jdbc.Driver
+    stock:
+      url: jdbc:mysql://127.0.0.1:3306/dtx_stock?useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+      username: root
+      password: root
+      driver-class-name: com.mysql.cj.jdbc.Driver
+
+seata:
+  enabled: true
+  application-id: dtx-seata-demo
+  tx-service-group: default_tx_group
+  # proxies are built by hand in DataSourceConfig
+  enable-auto-data-source-proxy: false
+  service:
+    vgroup-mapping:
+      default_tx_group: default
+    grouplist:
+      # only used when registry.type=file: where seata-server listens
+      default: 127.0.0.1:8091
+  registry:
+    type: file
+  config:
+    type: file
+
+logging:
+  level:
+    root: WARN
+    com.example.dtx: INFO
+    io.seata: INFO

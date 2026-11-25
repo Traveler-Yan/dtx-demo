@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: dtx-saga
+  main:
+    banner-mode: "off"
+  datasource:
+    url: jdbc:h2:mem:dtx_saga;DB_CLOSE_DELAY=-1;MODE=MySQL;DATABASE_TO_LOWER=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  sql:
+    init:
+      mode: always
+      encoding: UTF-8
+
+dtx:
+  saga:
+    # keep the background recovery job out of the way while tests run
+    recovery-initial-delay-ms: 60000
+    recovery-interval-ms: 60000
+
+logging:
+  level:
+    root: WARN
+    com.example.dtx: INFO

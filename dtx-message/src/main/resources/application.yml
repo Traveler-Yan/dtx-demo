@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: dtx-message
+  main:
+    banner-mode: "off"
+  datasource:
+    url: jdbc:h2:mem:dtx_message;DB_CLOSE_DELAY=-1;MODE=MySQL;DATABASE_TO_LOWER=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  sql:
+    init:
+      mode: always
+      encoding: UTF-8
+
+dtx:
+  mq:
+    # memory | rocketmq  (rocketmq needs a running broker + dtx.rocketmq.namesrv)
+    type: memory
+  message:
+    max-retry: 5
+    retry-backoff-ms: 500
+    batch-size: 20
+    relay-interval-ms: 1000
+    relay-initial-delay-ms: 60000
+
+logging:
+  level:
+    root: WARN
+    com.example.dtx: INFO

@@ -1,0 +1,7 @@
+com\example\dtx\seata\config\DataSourceConfig.class
+com\example\dtx\seata\repository\AccountRepository.class
+com\example\dtx\seata\SeataApplication.class
+com\example\dtx\seata\repository\OrderRepository.class
+com\example\dtx\seata\demo\SeataDemoRunner.class
+com\example\dtx\seata\repository\StockRepository.class
+com\example\dtx\seata\service\PlaceOrderService.class
